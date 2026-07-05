@@ -11,9 +11,9 @@ readonly build_dir
 
 git clone https://src.fedoraproject.org/rpms/kernel.git
 cd kernel
-git checkout 2e968930313cc3bac8fb760b99cf3cdc68966ea1
+git checkout f44
 
-readonly secureblue_buildid_version=2
+readonly secureblue_buildid_version=$(jq -r '.secureblue_buildid_version' "${build_dir}/hook_data")
 
 fedpkg sources
 
