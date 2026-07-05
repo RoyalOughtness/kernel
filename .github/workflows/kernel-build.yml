@@ -19,12 +19,6 @@ jobs:
   kernel-build:
     runs-on: ubuntu-26.04
     steps:
-      - name: Install deps
-        shell: bash
-        id: install_deps
-        run: |
-          sudo apt-get install rpm
-
       - name: Read repo variables
         id: repo_variables
         run: |
@@ -36,7 +30,7 @@ jobs:
       - name: Get upstream version
         id: get_upstream_version
         run: |
-          curl -fLsS --retry 5 https://src.fedoraproject.org/rpms/kernel/raw/f44/f/kernel.spec
+          curl -fLsS --retry 5  -o kernel.spec https://src.fedoraproject.org/rpms/kernel/raw/f44/f/kernel.spec
           version=$(rpmspec -P kernel.spec | awk '/^Version:/ { print $2; exit }')
           release=$(rpmspec -P kernel.spec | awk '/^Release:/ { print $2; exit }')
           if [[ -z "${version}" || -z "${release}" ]]; then

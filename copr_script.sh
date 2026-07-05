@@ -13,7 +13,8 @@ git clone https://src.fedoraproject.org/rpms/kernel.git
 cd kernel
 git checkout f44
 
-readonly secureblue_buildid_version=$(jq -r '.secureblue_buildid_version' "${build_dir}/hook_data")
+secureblue_buildid_version=$(jq -r '.secureblue_buildid_version' "${build_dir}/hook_data")
+readonly secureblue_buildid_version
 
 fedpkg sources
 
