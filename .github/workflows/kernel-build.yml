@@ -50,16 +50,17 @@ jobs:
         run: |
           need_build=false
           
-          # Unscheduled rebuild of an existing version, bump our buildid version
           if [[ "${EVENT_NAME}" == "workflow_dispatch" ]]; then
+          # Unscheduled rebuild of an existing version, bump our buildid version
             need_build=true
             secureblue_buildid_version=$(( STORED_SECUREBLUE_BUILDID_VERSION + 1 ))
-          fi
-
+          elif [[ "${CURRENT_UPSTREAM_VERSION_PLUS_RELEASE}" != "${STORED_UPSTREAM}" ]]; then
           # Upstream kernel version mismatch, reset our buildid version to 1
-          if [[ "${CURRENT_UPSTREAM_VERSION_PLUS_RELEASE}" != "${STORED_UPSTREAM}" ]]; then
             need_build=true
             secureblue_buildid_version=1
+          else
+            echo "Scheduled build with no upstream release change. No need to rebuild."
+            exit 0
           fi
 
           echo "need_build=${need_build}" >> "${GITHUB_OUTPUT}"
