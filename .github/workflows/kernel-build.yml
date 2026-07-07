@@ -20,8 +20,8 @@ jobs:
     runs-on: ubuntu-26.04
     environment: Build
     steps:
-      - name: Read repo variables
-        id: repo_variables
+      - name: Read env variables
+        id: env_variables
         run: |
           stored_upstream=$(gh variable get UPSTREAM_KERNEL_VERSION --env Build)
           stored_secureblue_buildid_version="$(gh variable get SECUREBLUE_BUILDID_VERSION --env Build)"
@@ -44,8 +44,8 @@ jobs:
         id: calculate_buildid
         env:
           EVENT_NAME: ${{ github.event_name }}
-          STORED_UPSTREAM: ${{ steps.repo_variables.outputs.stored_upstream }}
-          STORED_SECUREBLUE_BUILDID_VERSION: ${{ steps.repo_variables.outputs.stored_secureblue_buildid_version }}
+          STORED_UPSTREAM: ${{ steps.env_variables.outputs.stored_upstream }}
+          STORED_SECUREBLUE_BUILDID_VERSION: ${{ steps.env_variables.outputs.stored_secureblue_buildid_version }}
           CURRENT_UPSTREAM_VERSION_PLUS_RELEASE: ${{ steps.get_upstream_version.outputs.current_upstream_version_plus_release }}
         run: |
           need_build=false
