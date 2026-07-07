@@ -32,8 +32,8 @@ jobs:
         id: get_upstream_version
         run: |
           curl -fLsS --retry 5 -o kernel.spec https://src.fedoraproject.org/rpms/kernel/raw/f44/f/kernel.spec
-          version=$(rpmspec -P kernel.spec | awk '/^Version:/ { print $2; exit }')
-          release=$(rpmspec -P kernel.spec | awk '/^Release:/ { print $2; exit }')
+          version=$(rpmspec -P kernel.spec | awk '$1 == "Version:" { print $2; exit }')
+          release=$(rpmspec -P kernel.spec | awk '$1 == "Release:" { print $2; exit }')
           if [[ -z "${version}" || -z "${release}" ]]; then
             echo "failed to parse kernel.spec"
             exit 1
@@ -75,6 +75,5 @@ jobs:
         run: |
           gh variable set UPSTREAM_KERNEL_VERSION --env Build --body "${CURRENT_UPSTREAM_VERSION_PLUS_RELEASE}"
           gh variable set SECUREBLUE_BUILDID_VERSION --env Build --body "${SECUREBLUE_BUILDID_VERSION}"
-          curl -fLsS --retry 5 -X POST -H 'Content-Type: application/json' \
-            --data "{\"secureblue_buildid_version\": ${SECUREBLUE_BUILDID_VERSION}}" \
-            "${COPR_WEBHOOK_URL}"
+          payload=$(jq -cn --arg buildid_version "${SECUREBLUE_BUILDID_VERSION}" '{"secureblue_buildid_version": $buildid_version | tonumber}')
+          curl -fLsS --retry 5 --json "${payload}" "${COPR_WEBHOOK_URL}"
