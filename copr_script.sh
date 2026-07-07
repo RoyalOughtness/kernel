@@ -54,6 +54,8 @@ configs_to_disable=(
   # https://www.kernelconfig.io/CONFIG_AF_RXRPC
   # RxRPC session sockets
   CONFIG_AF_RXRPC
+  # Required for disabling RxRPC session sockets
+  CONFIG_AFS_FS
 
   # https://www.kernelconfig.io/CONFIG_XDP_SOCKETS_DIAG
   # XDP sockets: monitoring interface
