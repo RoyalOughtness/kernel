@@ -14,7 +14,7 @@ cd kernel
 git checkout f44
 
 # https://docs.copr.fedorainfracloud.org/user_documentation.html#webhooks
-secureblue_buildid_version=$(jq -r '.secureblue_buildid_version' "${build_dir}/hook_data")
+secureblue_buildid_version=$(jq -r '.secureblue_buildid_version' "${build_dir}/hook_payload")
 readonly secureblue_buildid_version
 
 fedpkg sources
