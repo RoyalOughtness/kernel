@@ -23,8 +23,8 @@ jobs:
       - name: Read repo variables
         id: repo_variables
         run: |
-          stored_upstream=$(gh variable get UPSTREAM_KERNEL_VERSION)
-          stored_secureblue_buildid_version="$(gh variable get SECUREBLUE_BUILDID_VERSION)"
+          stored_upstream=$(gh variable get UPSTREAM_KERNEL_VERSION --env Build)
+          stored_secureblue_buildid_version="$(gh variable get SECUREBLUE_BUILDID_VERSION --env Build)"
           echo "stored_upstream=${stored_upstream}" >> "${GITHUB_OUTPUT}"
           echo "stored_secureblue_buildid_version=${stored_secureblue_buildid_version}" >> "${GITHUB_OUTPUT}"
 
@@ -72,8 +72,8 @@ jobs:
           SECUREBLUE_BUILDID_VERSION: ${{ steps.calculate_buildid.outputs.secureblue_buildid_version }}
           COPR_WEBHOOK_URL: ${{ secrets.COPR_WEBHOOK_URL }}
         run: |
-          gh variable set UPSTREAM_KERNEL_VERSION --body "${CURRENT_UPSTREAM_VERSION_PLUS_RELEASE}"
-          gh variable set SECUREBLUE_BUILDID_VERSION --body "${SECUREBLUE_BUILDID_VERSION}"
+          gh variable set UPSTREAM_KERNEL_VERSION --env Build --body "${CURRENT_UPSTREAM_VERSION_PLUS_RELEASE}"
+          gh variable set SECUREBLUE_BUILDID_VERSION --env Build --body "${SECUREBLUE_BUILDID_VERSION}"
           curl -fsS --retry 3 -X POST -H 'Content-Type: application/json' \
             --data "{\"secureblue_buildid_version\": ${SECUREBLUE_BUILDID_VERSION}}" \
             "${COPR_WEBHOOK_URL}"
