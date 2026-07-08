@@ -11,6 +11,10 @@ concurrency:
 
 permissions: {}
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   kernel-build:
     runs-on: ubuntu-26.04
