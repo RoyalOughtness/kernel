@@ -9,11 +9,12 @@ concurrency:
   group: kernel-build
   cancel-in-progress: false
 
-permissions: {}
+permissions: # See VARS_TOKEN note
+  contents: write
 
 env:
   GH_REPO: ${{ github.repository }}
-  GH_TOKEN: ${{ secrets.VARS_TOKEN }}
+  GH_TOKEN: ${{ secrets.VARS_TOKEN }} # has Environments RW
 
 jobs:
   kernel-build:
@@ -73,7 +74,17 @@ jobs:
           SECUREBLUE_BUILDID_VERSION: ${{ steps.calculate_buildid.outputs.secureblue_buildid_version }}
           COPR_WEBHOOK_URL: ${{ secrets.COPR_WEBHOOK_URL }}
         run: |
+          payload=$(jq -cn --arg buildid_version "${SECUREBLUE_BUILDID_VERSION}" '{"secureblue_buildid_version": $buildid_version | tonumber}')
           gh variable set UPSTREAM_KERNEL_VERSION --env Build --body "${CURRENT_UPSTREAM_VERSION_PLUS_RELEASE}"
           gh variable set SECUREBLUE_BUILDID_VERSION --env Build --body "${SECUREBLUE_BUILDID_VERSION}"
-          payload=$(jq -cn --arg buildid_version "${SECUREBLUE_BUILDID_VERSION}" '{"secureblue_buildid_version": $buildid_version | tonumber}')
           curl -fLsS --retry 5 --json "${payload}" "${COPR_WEBHOOK_URL}"
+
+      - name: Create release
+        if: steps.calculate_buildid.outputs.need_build == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CURRENT_UPSTREAM_VERSION_PLUS_RELEASE: ${{ steps.get_upstream_version.outputs.current_upstream_version_plus_release }}
+          SECUREBLUE_BUILDID_VERSION: ${{ steps.calculate_buildid.outputs.secureblue_buildid_version }}
+        run: |
+          TAG="${CURRENT_UPSTREAM_VERSION_PLUS_RELEASE}.secureblue.${SECUREBLUE_BUILDID_VERSION}"
+          gh release create "${TAG}" --generate-notes
