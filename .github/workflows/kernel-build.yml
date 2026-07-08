@@ -9,19 +9,19 @@ concurrency:
   group: kernel-build
   cancel-in-progress: false
 
-permissions: {} # See VARS_TOKEN note
-
-env:
-  GH_REPO: ${{ github.repository }}
-  GH_TOKEN: ${{ secrets.VARS_TOKEN }} # has Environments RW
+permissions: {}
 
 jobs:
   kernel-build:
     runs-on: ubuntu-26.04
     environment: Build
+    permissions:
+      contents: write # required to push new releases
     steps:
       - name: Read env variables
         id: env_variables
+        env:
+          GH_TOKEN: ${{ secrets.VARS_TOKEN }} # has Environments RW
         run: |
           stored_upstream=$(gh variable get UPSTREAM_KERNEL_VERSION --env Build)
           stored_secureblue_buildid_version="$(gh variable get SECUREBLUE_BUILDID_VERSION --env Build)"
@@ -69,6 +69,7 @@ jobs:
       - name: Run build
         if: steps.calculate_buildid.outputs.need_build == 'true'
         env:
+          GH_TOKEN: ${{ secrets.VARS_TOKEN }} # has Environments RW
           CURRENT_UPSTREAM_VERSION_PLUS_RELEASE: ${{ steps.get_upstream_version.outputs.current_upstream_version_plus_release }}
           SECUREBLUE_BUILDID_VERSION: ${{ steps.calculate_buildid.outputs.secureblue_buildid_version }}
           COPR_WEBHOOK_URL: ${{ secrets.COPR_WEBHOOK_URL }}
@@ -80,8 +81,6 @@ jobs:
 
       - name: Create release
         if: steps.calculate_buildid.outputs.need_build == 'true'
-        permissions:
-          contents: write # required to push new releases
         env:
           GH_TOKEN: ${{ github.token }}
           CURRENT_UPSTREAM_VERSION_PLUS_RELEASE: ${{ steps.get_upstream_version.outputs.current_upstream_version_plus_release }}
