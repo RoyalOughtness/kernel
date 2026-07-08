@@ -67,6 +67,8 @@ jobs:
           echo "secureblue_buildid_version=${secureblue_buildid_version}" >> "${GITHUB_OUTPUT}"
 
       - name: Run build
+        id: build
+        timeout-minutes: 120
         if: steps.calculate_buildid.outputs.need_build == 'true'
         env:
           GH_TOKEN: ${{ secrets.VARS_TOKEN }} # has Environments RW
@@ -77,10 +79,23 @@ jobs:
           payload=$(jq -cn --arg buildid_version "${SECUREBLUE_BUILDID_VERSION}" '{"secureblue_buildid_version": $buildid_version | tonumber}')
           gh variable set UPSTREAM_KERNEL_VERSION --env Build --body "${CURRENT_UPSTREAM_VERSION_PLUS_RELEASE}"
           gh variable set SECUREBLUE_BUILDID_VERSION --env Build --body "${SECUREBLUE_BUILDID_VERSION}"
-          curl -fLsS --retry 5 --json "${payload}" "${COPR_WEBHOOK_URL}"
+          build_id=$(curl -fLsS --retry 5 --json "${payload}" "${COPR_WEBHOOK_URL}")
+          while true; do
+            state=$(curl -fLsS --retry 5 "https://copr.fedorainfracloud.org/api_3/build/${BUILD_ID}" | jq -r '.state')
+            if [[ "${state}" == "succeeded" ]]; then
+              echo "build_succeeded=true" >> "${GITHUB_OUTPUT}"
+              exit 0
+            fi
+            
+            if [[ "${state}" =~ ^(canceled|skipped|failed)$ ]]; then
+              exit 1
+            fi
+            
+            sleep 60
+          done
 
       - name: Create release
-        if: steps.calculate_buildid.outputs.need_build == 'true'
+        if: steps.build.outputs.success == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
           CURRENT_UPSTREAM_VERSION_PLUS_RELEASE: ${{ steps.get_upstream_version.outputs.current_upstream_version_plus_release }}
