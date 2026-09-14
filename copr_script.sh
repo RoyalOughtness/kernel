@@ -26,9 +26,29 @@ configs_to_enable=(
   # https://www.kernelconfig.io/CONFIG_PROC_PAGE_MONITOR
   # requires a value set since its parent gets disabled
   CONFIG_PROC_PAGE_MONITOR
+
+  # https://www.kernelconfig.io/CONFIG_INIT_ON_ALLOC_DEFAULT_ON
+  # Equivalent to defaulting init_on_alloc=1, already set by Fedora and our kargs
+  CONFIG_INIT_ON_ALLOC_DEFAULT_ON
+
+  # https://www.kernelconfig.io/CONFIG_INIT_ON_FREE_DEFAULT_ON
+  # Equivalent to defaulting init_on_free=1, already set by our kargs
+  CONFIG_INIT_ON_FREE_DEFAULT_ON
+
+  # https://www.kernelconfig.io/CONFIG_IOMMU_DEFAULT_DMA_STRICT
+  # Equivalent to defaulting iommu.passthrough=0 iommu.strict=1, already set by our kargs
+  CONFIG_IOMMU_DEFAULT_DMA_STRICT
 )
 
 configs_to_disable=(
+  # https://www.kernelconfig.io/CONFIG_IOMMU_DEFAULT_DMA_LAZY
+  # Disabling this to override Fedora's enabling of it. Needed for STRICT to take effect.
+  CONFIG_IOMMU_DEFAULT_DMA_LAZY
+
+  # https://www.kernelconfig.io/CONFIG_X86_VSYSCALL_EMULATION
+  # vsyscall emulation. Equivalent to defaulting vsyscall=none, already set by our kargs
+  CONFIG_X86_VSYSCALL_EMULATION
+
   # https://www.kernelconfig.io/CONFIG_INFINIBAND
   # https://en.wikipedia.org/wiki/InfiniBand
   # InfiniBand support
