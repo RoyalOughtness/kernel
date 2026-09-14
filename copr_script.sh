@@ -234,6 +234,18 @@ configs_to_disable=(
   # https://en.wikipedia.org/wiki/GPIB
   # Enable support for GPIB cards and dongles.
   CONFIG_GPIB
+
+
+  ############################################################
+  ################# Attack surface reduction #################
+  ############################################################
+  # https://www.kernelconfig.io/CONFIG_DEVPORT
+  # Provides support for the /dev/port device, which can RW directly to IO ports
+  CONFIG_DEVPORT
+
+  # https://www.kernelconfig.io/CONFIG_DEVMEM
+  # Provides support for the /dev/mem device, which can RW directly to memory
+  CONFIG_DEVMEM
 )
 
 for config_to_disable in "${configs_to_disable[@]}"; do
