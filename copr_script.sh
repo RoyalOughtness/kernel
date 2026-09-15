@@ -246,6 +246,15 @@ configs_to_disable=(
   # https://www.kernelconfig.io/CONFIG_DEVMEM
   # Provides support for the /dev/mem device, which can RW directly to memory
   CONFIG_DEVMEM
+  
+  # https://www.kernelconfig.io/CONFIG_KPROBES
+  # https://www.kernelconfig.io/CONFIG_KPROBE_EVENTS
+  # https://www.kernelconfig.io/CONFIG_KPROBES_SANITY_TEST
+  # Everything KPROBE related. Kprobes are already disabled via lockdown
+  # and are only used for kernel development
+  CONFIG_KPROBES
+  CONFIG_KPROBE_EVENTS
+  CONFIG_KPROBES_SANITY_TEST
 
   # https://www.kernelconfig.io/CONFIG_PROC_KCORE
   # Exposes kernel text image layout in /proc/kcore
