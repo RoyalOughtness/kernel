@@ -249,12 +249,12 @@ configs_to_disable=(
   
   # https://www.kernelconfig.io/CONFIG_KPROBES
   # https://www.kernelconfig.io/CONFIG_KPROBE_EVENTS
-  # https://www.kernelconfig.io/KPROBES_SANITY_TEST
+  # https://www.kernelconfig.io/CONFIG_KPROBES_SANITY_TEST
   # Everything KPROBE related. Kprobes are already disabled via lockdown
   # and are only used for kernel development
   CONFIG_KPROBES
   CONFIG_KPROBE_EVENTS
-  KPROBES_SANITY_TEST
+  CONFIG_KPROBES_SANITY_TEST
 )
 
 for config_to_disable in "${configs_to_disable[@]}"; do
