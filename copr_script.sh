@@ -255,6 +255,12 @@ configs_to_disable=(
   CONFIG_KPROBES
   CONFIG_KPROBE_EVENTS
   CONFIG_KPROBES_SANITY_TEST
+
+  # https://cateee.net/lkddb/web-lkddb/EFI_CUSTOM_SSDT_OVERLAYS.html
+  # https://cateee.net/lkddb/web-lkddb/ACPI_TABLE_UPGRADE.html
+  # Various ACPI modification functionality that's already blocked by lockdown
+  CONFIG_EFI_CUSTOM_SSDT_OVERLAYS
+  CONFIG_ACPI_TABLE_UPGRADE
 )
 
 for config_to_disable in "${configs_to_disable[@]}"; do
