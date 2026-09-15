@@ -256,6 +256,42 @@ configs_to_disable=(
   CONFIG_KPROBE_EVENTS
   CONFIG_KPROBES_SANITY_TEST
 
+  # https://www.kernelconfig.io/CONFIG_PROC_KCORE
+  # Exposes kernel text image layout in /proc/kcore
+  CONFIG_PROC_KCORE
+
+  # https://cateee.net/lkddb/web-lkddb/HIBERNATION.html
+  # https://unix.stackexchange.com/a/591493
+  # Already prevented by lockdown, substantial attack surface
+  CONFIG_HIBERNATION
+
+  # https://www.kernelconfig.io/CONFIG_EFI_TEST
+  # EFI testing support
+  CONFIG_EFI_TEST
+
+  # https://www.kernelconfig.io/CONFIG_MMIOTRACE
+  # MMIO access for debugging
+  CONFIG_MMIOTRACE
+
+  # https://cateee.net/lkddb/web-lkddb/KEXEC.html
+  # https://cateee.net/lkddb/web-lkddb/KEXEC_FILE.html
+  # Kexec, already disabled via sysctl
+  CONFIG_KEXEC
+  CONFIG_KEXEC_FILE
+
+  # https://cateee.net/lkddb/web-lkddb/CRASH_DUMP.html
+  # Crash dump support for kernel debugging, depends on kexec
+  CONFIG_CRASH_DUMP
+
+  # https://cateee.net/lkddb/web-lkddb/PROC_VMCORE.html
+  # Used by kdump, a kernel debugging tool which depends on kexec
+  CONFIG_PROC_VMCORE
+
+  # https://cateee.net/lkddb/web-lkddb/CRASH_DM_CRYPT.html
+  # Enables writing crash dumps to an encrypted disk volume.
+  # Useless when crash dumps are already disabled
+  CONFIG_CRASH_DM_CRYPT
+
   # https://cateee.net/lkddb/web-lkddb/EFI_CUSTOM_SSDT_OVERLAYS.html
   # https://cateee.net/lkddb/web-lkddb/ACPI_TABLE_UPGRADE.html
   # Various ACPI modification functionality that's already blocked by lockdown
