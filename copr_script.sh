@@ -249,7 +249,7 @@ configs_to_disable=(
   
   # https://cateee.net/lkddb/web-lkddb/STRICT_DEVMEM.html
   # https://cateee.net/lkddb/web-lkddb/IO_STRICT_DEVMEM.html
-  # Fedora enables these but it depends on devmem, which we disable, so we must disable it too
+  # Fedora enables these but they depends on devmem, which we disable, so we must disable them too
   CONFIG_STRICT_DEVMEM
   CONFIG_IO_STRICT_DEVMEM
 
