@@ -246,6 +246,12 @@ configs_to_disable=(
   # https://www.kernelconfig.io/CONFIG_DEVMEM
   # Provides support for the /dev/mem device, which can RW directly to memory
   CONFIG_DEVMEM
+
+  # https://cateee.net/lkddb/web-lkddb/EFI_CUSTOM_SSDT_OVERLAYS.html
+  # https://cateee.net/lkddb/web-lkddb/ACPI_TABLE_UPGRADE.html
+  # Various ACPI modification functionality that's already blocked by lockdown
+  CONFIG_EFI_CUSTOM_SSDT_OVERLAYS
+  CONFIG_ACPI_TABLE_UPGRADE
 )
 
 for config_to_disable in "${configs_to_disable[@]}"; do
