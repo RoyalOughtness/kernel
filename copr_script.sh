@@ -377,6 +377,7 @@ configs_to_disable=(
   CONFIG_JOYSTICK_TWIDJOY
   CONFIG_JOYSTICK_WALKERA0701
   CONFIG_JOYSTICK_WARRIOR
+  CONFIG_JOYSTICK_ZHENHUA
 )
 
 for config_to_disable in "${configs_to_disable[@]}"; do
