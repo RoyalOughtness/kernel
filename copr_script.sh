@@ -133,10 +133,6 @@ configs_to_disable=(
   # Draft protocol that's in the kernel but not a standard
   CONFIG_IPV6_ILA
 
-  # Driver for Synopsys DesignWare PCIe traffic generator, a PCIe testing device
-  # https://cateee.net/lkddb/web-lkddb/DW_XDATA_PCIE.html
-  CONFIG_DW_XDATA_PCIE
-
   # ATA over ethernet
   # Obsolete datacenter protocol
   # https://cateee.net/lkddb/web-lkddb/ATA_OVER_ETH.html
@@ -278,6 +274,7 @@ configs_to_disable=(
   # https://cateee.net/lkddb/web-lkddb/STM.html
   # https://cateee.net/lkddb/web-lkddb/INTEL_TH.html
   CONFIG_INTEL_TH
+  CONFIG_CORESIGHT_STM
   CONFIG_STM
 
   # Virtual netlink monitoring device
@@ -289,6 +286,10 @@ configs_to_disable=(
   # https://cateee.net/lkddb/web-lkddb/VSOCKMON.html
   # "It is mostly intended for developers or support to debug vsock issues."
   CONFIG_VSOCKMON
+
+  # Driver for Synopsys DesignWare PCIe traffic generator, a PCIe testing device
+  # https://cateee.net/lkddb/web-lkddb/DW_XDATA_PCIE.html
+  CONFIG_DW_XDATA_PCIE
 
 
   ############################################################
