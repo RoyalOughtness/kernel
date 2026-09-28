@@ -120,6 +120,10 @@ configs_to_disable=(
   # (AER) software error injector.
   CONFIG_PCIEAER_INJECT
 
+  # https://cateee.net/lkddb/web-lkddb/ACPI_APEI_EINJ.html
+  # APEI error injection for debugging
+  CONFIG_ACPI_APEI_EINJ
+
   # https://www.kernelconfig.io/CONFIG_SCSI_DEBUG
   # SCSI debugging host and device simulator
   CONFIG_SCSI_DEBUG
@@ -323,6 +327,20 @@ configs_to_disable=(
   # Various ACPI modification functionality that's already blocked by lockdown
   CONFIG_EFI_CUSTOM_SSDT_OVERLAYS
   CONFIG_ACPI_TABLE_UPGRADE
+
+  # Asynchronous Transfer Mode
+  # https://www.kernelconfig.io/CONFIG_ATM
+  # Already blocked at runtime: https://github.com/secureblue/secureblue/blob/live/files/system/usr/lib/modprobe.d/secureblue.conf#L26
+  CONFIG_ATM
+
+  # Legacy parallel port support
+  # https://www.kernelconfig.io/CONFIG_PARPORT
+  # Already blocked at runtime: https://github.com/secureblue/secureblue/blob/live/files/system/usr/lib/modprobe.d/secureblue.conf#L183
+  CONFIG_PARPORT
+
+  # Legacy game port support
+  # https://cateee.net/lkddb/web-lkddb/GAMEPORT.html
+  # Already blocked at runtime: https://github.com/secureblue/secureblue/blob/live/files/system/usr/lib/modprobe.d/secureblue.conf#L195
 )
 
 for config_to_disable in "${configs_to_disable[@]}"; do
