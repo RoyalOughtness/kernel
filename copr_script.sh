@@ -341,6 +341,7 @@ configs_to_disable=(
   # Legacy game port support
   # https://cateee.net/lkddb/web-lkddb/GAMEPORT.html
   # Already blocked at runtime: https://github.com/secureblue/secureblue/blob/live/files/system/usr/lib/modprobe.d/secureblue.conf#L195
+  CONFIG_GAMEPORT
 )
 
 for config_to_disable in "${configs_to_disable[@]}"; do
