@@ -332,12 +332,6 @@ configs_to_disable=(
   # Remote Controller support
   CONFIG_RC_CORE
 
-  # https://www.kernelconfig.io/CONFIG_IIO
-  # The industrial I/O subsystem provides a unified framework for
-  # drivers for many different types of embedded sensors using a
-  # number of different physical interfaces (i2c, spi, etc).
-  CONFIG_IIO
-
   # https://www.kernelconfig.io/CONFIG_USB_GSPCA
   # GSPCA based webcams
   # https://www.kernel.org/doc/Documentation/admin-guide/media/gspca-cardlist.rst
