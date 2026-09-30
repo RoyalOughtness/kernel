@@ -103,6 +103,40 @@ configs_to_disable=(
   CONFIG_NET_DSA
 
 
+  ############################################################
+  ####### Features for mobile carriers / datacenters #########
+  ############################################################
+  # GPRS Tunneling Protocol
+  # https://www.kernelconfig.io/CONFIG_GTP
+  CONFIG_GTP
+
+  # Packet Forwarding Control Protocol
+  # https://cateee.net/lkddb/web-lkddb/PFCP.html
+  CONFIG_PFCP
+
+  # Automatic Multicast Tunneling
+  # https://cateee.net/lkddb/web-lkddb/AMT.html
+  CONFIG_AMT
+
+  # https://cateee.net/lkddb/web-lkddb/AF_KCM.html
+  # Kernel Connection Multiplexor
+  # Has been the source of CVEs, appears to have little to no use outside of 
+  # datacenter applications. 
+  CONFIG_AF_KCM
+
+  # https://www.kernelconfig.io/CONFIG_BAREUDP
+  # Used for applications like https://en.wikipedia.org/wiki/Multiprotocol_Label_Switching
+  CONFIG_BAREUDP
+
+  # Identifier Locator Addressing
+  # https://cateee.net/lkddb/web-lkddb/IPV6_ILA.html
+  # Draft protocol that's in the kernel but not a standard
+  CONFIG_IPV6_ILA
+
+  # ATA over ethernet
+  # Obsolete datacenter protocol
+  # https://cateee.net/lkddb/web-lkddb/ATA_OVER_ETH.html
+  CONFIG_ATA_OVER_ETH
 
   ############################################################
   ################# Kernel testing features ##################
@@ -157,6 +191,109 @@ configs_to_disable=(
   # "These drivers should not be used on production kernels"
   CONFIG_MEDIA_TEST_SUPPORT
 
+  # https://cateee.net/lkddb/web-lkddb/CRYPTO_BENCHMARK.html
+  # "For use by people developing cryptographic algorithms in the kernel. It should not be enabled in production kernels."
+  CONFIG_CRYPTO_BENCHMARK
+
+  # https://cateee.net/lkddb/web-lkddb/X86_AMD_PSTATE_UT.html
+  # Selftest for AMD Processor P-State driver
+  # "This kernel module is used for testing"
+  CONFIG_X86_AMD_PSTATE_UT
+
+  # https://www.kernelconfig.io/CONFIG_I2C_STUB
+  # I2C/SMBus Test Stub
+  # This module may be useful to developers of SMBus client drivers,
+  # especially for certain kinds of sensor chips
+  # "If you don't know what to do here, definitely say N."
+  CONFIG_I2C_STUB
+
+  # https://www.kernelconfig.io/CONFIG_I2C_SLAVE_EEPROM
+  # I2C slave mode EEPROM simulator
+  CONFIG_I2C_SLAVE_EEPROM
+
+  # https://www.kernelconfig.io/CONFIG_GPIO_SIM
+  # GPIO Simulator Module
+  CONFIG_GPIO_SIM
+
+  # https://cateee.net/lkddb/web-lkddb/GPIO_VIRTUSER.html
+  # GPIO Virtual User Testing Module
+  CONFIG_GPIO_VIRTUSER
+
+  # vDPA device simulator
+  # https://cateee.net/lkddb/web-lkddb/VDPA_SIM.html
+  # https://cateee.net/lkddb/web-lkddb/VDPA_SIM_NET.html
+  # https://cateee.net/lkddb/web-lkddb/VDPA_SIM_BLOCK.html
+  CONFIG_VDPA_SIM
+  CONFIG_VDPA_SIM_NET
+  CONFIG_VDPA_SIM_BLOCK
+
+  # NVMe over Fabrics FC Transport Loopback Test driver
+  # https://cateee.net/lkddb/web-lkddb/NVME_TARGET_FCLOOP.html
+  CONFIG_NVME_TARGET_FCLOOP
+
+  # NTB (Non-Transparent Bridge) testing
+  # https://cateee.net/lkddb/web-lkddb/NTB_PERF.html
+  # https://cateee.net/lkddb/web-lkddb/NTB_PINGPONG.html
+  # https://cateee.net/lkddb/web-lkddb/NTB_TOOL.html
+  CONFIG_NTB_PERF
+  CONFIG_NTB_PINGPONG
+  CONFIG_NTB_TOOL
+
+  # Block device testing
+  # https://cateee.net/lkddb/web-lkddb/BLK_DEV_NULL_BLK.html
+  # https://cateee.net/lkddb/web-lkddb/BLK_DEV_RUST_NULL.html
+  # https://cateee.net/lkddb/web-lkddb/BLK_DEV_ZONED_LOOP.html
+  CONFIG_BLK_DEV_NULL_BLK
+  CONFIG_BLK_DEV_RUST_NULL
+  CONFIG_BLK_DEV_ZONED_LOOP
+
+  # Device mapper testing
+  # https://cateee.net/lkddb/web-lkddb/DM_FLAKEY.html
+  # https://cateee.net/lkddb/web-lkddb/DM_DUST.html
+  # https://cateee.net/lkddb/web-lkddb/DM_DELAY.html
+  # https://cateee.net/lkddb/web-lkddb/DM_LOG_WRITES.html
+  CONFIG_DM_FLAKEY
+  CONFIG_DM_DUST
+  CONFIG_DM_DELAY
+  CONFIG_DM_LOG_WRITES
+
+  # Dummy soundcard driver
+  # https://cateee.net/lkddb/web-lkddb/SND_DUMMY.html
+  CONFIG_SND_DUMMY
+
+  # Emulated bluetooth device
+  # https://cateee.net/lkddb/web-lkddb/BT_HCIVHCI.html
+  # Bluetooth Virtual HCI device driver. This driver is required if you want to use HCI Emulation software.
+  CONFIG_BT_HCIVHCI
+
+  # Allows ethernet drivers to be used as simulated Wifi connections
+  # https://cateee.net/lkddb/web-lkddb/VIRT_WIFI.html
+  CONFIG_VIRT_WIFI
+
+  # Virtual graphics execution manager
+  # https://cateee.net/lkddb/web-lkddb/DRM_VGEM.html
+  CONFIG_DRM_VGEM
+
+  # Support for Intel(R) Trace Hub (TH) and Coresight STM, hardware debugging tools
+  # https://cateee.net/lkddb/web-lkddb/STM.html
+  # https://cateee.net/lkddb/web-lkddb/INTEL_TH.html
+  CONFIG_INTEL_TH
+  CONFIG_CORESIGHT_STM
+  CONFIG_STM
+
+  # Virtual netlink monitoring device
+  # https://cateee.net/lkddb/web-lkddb/NLMON.html
+  # "This is mostly intended for developers or support to debug netlink issues."
+  CONFIG_NLMON
+
+  # Virtual vsock monitoring device
+  # https://cateee.net/lkddb/web-lkddb/VSOCKMON.html
+  # "It is mostly intended for developers or support to debug vsock issues."
+  CONFIG_VSOCKMON
+
+  # Driver for Synopsys DesignWare PCIe traffic generator, a PCIe testing device
+  # https://cateee.net/lkddb/web-lkddb/DW_XDATA_PCIE.html
+  CONFIG_DW_XDATA_PCIE
 
 
   ############################################################
@@ -171,6 +308,20 @@ configs_to_disable=(
   # serial ports because they serve many terminals or dial-in
   # connections.
   CONFIG_SERIAL_NONSTANDARD
+
+  # Load balancing when using internet over telephone lines
+  # https://cateee.net/lkddb/web-lkddb/EQUALIZER.html
+  CONFIG_EQUALIZER
+
+  # SLIP (serial line) support
+  # The obsolete way to access dial up. "Modern" dialup uses PPP.
+  CONFIG_SLIP
+
+  # Obsolete card support
+  # https://en.wikipedia.org/wiki/PCMCIA
+  # https://en.wikipedia.org/wiki/PC_Card
+  # https://cateee.net/lkddb/web-lkddb/PCCARD.html
+  CONFIG_PCCARD
 
   # https://www.kernelconfig.io/CONFIG_NOZOMI
   # HSDPA Broadband Wireless Data Card - Globe Trotter
