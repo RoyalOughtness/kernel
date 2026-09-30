@@ -154,6 +154,10 @@ configs_to_disable=(
   # (AER) software error injector.
   CONFIG_PCIEAER_INJECT
 
+  # https://cateee.net/lkddb/web-lkddb/ACPI_APEI_EINJ.html
+  # APEI error injection for debugging
+  CONFIG_ACPI_APEI_EINJ
+
   # https://www.kernelconfig.io/CONFIG_SCSI_DEBUG
   # SCSI debugging host and device simulator
   CONFIG_SCSI_DEBUG
@@ -474,6 +478,57 @@ configs_to_disable=(
   # Various ACPI modification functionality that's already blocked by lockdown
   CONFIG_EFI_CUSTOM_SSDT_OVERLAYS
   CONFIG_ACPI_TABLE_UPGRADE
+
+  # Asynchronous Transfer Mode
+  # https://www.kernelconfig.io/CONFIG_ATM
+  # Already blocked at runtime: https://github.com/secureblue/secureblue/blob/live/files/system/usr/lib/modprobe.d/secureblue.conf#L26
+  CONFIG_ATM
+
+  # Legacy parallel port support
+  # https://www.kernelconfig.io/CONFIG_PARPORT
+  # Already blocked at runtime: https://github.com/secureblue/secureblue/blob/live/files/system/usr/lib/modprobe.d/secureblue.conf#L183
+  CONFIG_PARPORT
+
+  # Legacy game port support
+  # And all joystick modules aside from xpad 
+  # https://cateee.net/lkddb/web-lkddb/GAMEPORT.html
+  # Already blocked at runtime: https://github.com/secureblue/secureblue/blob/live/files/system/usr/lib/modprobe.d/secureblue.conf#L195
+  CONFIG_GAMEPORT
+  CONFIG_JOYSTICK_A3D
+  CONFIG_JOYSTICK_ADC
+  CONFIG_JOYSTICK_ADI
+  CONFIG_JOYSTICK_ANALOG
+  CONFIG_JOYSTICK_AS5011
+  CONFIG_JOYSTICK_COBRA
+  CONFIG_JOYSTICK_DB9
+  CONFIG_JOYSTICK_FSIA6B
+  CONFIG_JOYSTICK_GAMECON
+  CONFIG_JOYSTICK_GF2K
+  CONFIG_JOYSTICK_GRIP
+  CONFIG_JOYSTICK_GRIP_MP
+  CONFIG_JOYSTICK_GUILLEMOT
+  CONFIG_JOYSTICK_IFORCE_232
+  CONFIG_JOYSTICK_IFORCE
+  CONFIG_JOYSTICK_IFORCE_USB
+  CONFIG_JOYSTICK_INTERACT
+  CONFIG_JOYSTICK_JOYDUMP
+  CONFIG_JOYSTICK_MAGELLAN
+  CONFIG_JOYSTICK_PSXPAD_SPI_FF
+  CONFIG_JOYSTICK_PSXPAD_SPI
+  CONFIG_JOYSTICK_PXRC
+  CONFIG_JOYSTICK_QWIIC
+  CONFIG_JOYSTICK_SEESAW
+  CONFIG_JOYSTICK_SENSEHAT
+  CONFIG_JOYSTICK_SIDEWINDER
+  CONFIG_JOYSTICK_SPACEBALL
+  CONFIG_JOYSTICK_SPACEORB
+  CONFIG_JOYSTICK_STINGER
+  CONFIG_JOYSTICK_TMDC
+  CONFIG_JOYSTICK_TURBOGRAFX
+  CONFIG_JOYSTICK_TWIDJOY
+  CONFIG_JOYSTICK_WALKERA0701
+  CONFIG_JOYSTICK_WARRIOR
+  CONFIG_JOYSTICK_ZHENHUA
 )
 
 for config_to_disable in "${configs_to_disable[@]}"; do
