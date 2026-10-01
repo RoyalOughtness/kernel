@@ -38,6 +38,12 @@ configs_to_enable=(
   # https://www.kernelconfig.io/CONFIG_IOMMU_DEFAULT_DMA_STRICT
   # Equivalent to defaulting iommu.passthrough=0 iommu.strict=1, already set by our kargs
   CONFIG_IOMMU_DEFAULT_DMA_STRICT
+
+  # https://www.kernelconfig.io/CONFIG_ZERO_CALL_USED_REGS
+  # Zero contents of caller-used registers before returning.
+  # Reduces side channel attack vectors with negligible perf impact and a
+  # slight increase in kernel image size (<1% on x86_64, 5% on aarch64)
+  CONFIG_ZERO_CALL_USED_REGS
 )
 
 configs_to_disable=(
