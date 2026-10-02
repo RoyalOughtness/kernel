@@ -319,6 +319,10 @@ configs_to_disable=(
   # Tool for debugging kernel latency
   CONFIG_LATENCYTOP
 
+  # https://cateee.net/lkddb/web-lkddb/SUNRPC_DEBUG.html
+  # Used for debugging NFS issues
+  CONFIG_SUNRPC_DEBUG
+
   # https://cateee.net/lkddb/web-lkddb/XFS_ONLINE_SCRUB_STATS.html
   # xfs_scrub monitoring and data collection tooling
   CONFIG_XFS_ONLINE_SCRUB_STATS
@@ -427,10 +431,6 @@ configs_to_disable=(
   # https://cateee.net/lkddb/web-lkddb/LIVEPATCH.html
   # Attack surface, not useful with bootc 
   CONFIG_LIVEPATCH
-
-  # https://cateee.net/lkddb/web-lkddb/SUNRPC_DEBUG.html
-  # Used for debugging NFS issues
-  CONFIG_SUNRPC_DEBUG
 
   # https://cateee.net/lkddb/web-lkddb/X86_IOPL_IOPERM.html
   # Provides emulation for legacy syscalls that are already blocked by lockdown
