@@ -35,6 +35,10 @@ configs_to_enable=(
   # Equivalent to defaulting init_on_free=1, already set by our kargs
   CONFIG_INIT_ON_FREE_DEFAULT_ON
 
+  # https://cateee.net/lkddb/web-lkddb/INTEL_IOMMU_DEFAULT_ON.html
+  # Equivalent to intel_iommu=on, already set by our kargs
+  CONFIG_INTEL_IOMMU_DEFAULT_ON
+
   # https://www.kernelconfig.io/CONFIG_IOMMU_DEFAULT_DMA_STRICT
   # Equivalent to defaulting iommu.passthrough=0 iommu.strict=1, already set by our kargs
   CONFIG_IOMMU_DEFAULT_DMA_STRICT
@@ -44,6 +48,11 @@ configs_to_enable=(
   # Reduces side channel attack vectors with negligible perf impact and a
   # slight increase in kernel image size (<1% on x86_64, 5% on aarch64)
   CONFIG_ZERO_CALL_USED_REGS
+
+  # https://cateee.net/lkddb/web-lkddb/DEBUG_NOTIFIERS.html
+  # Sanity checks on notifier call chains, slight perf hit
+  # in exchange for reduced kernel panics/oopses and dangling pointers
+  CONFIG_DEBUG_NOTIFIERS
 )
 
 configs_to_disable=(
@@ -107,6 +116,10 @@ configs_to_disable=(
   # Distributed Switch Architecture
   # https://docs.kernel.org/networking/dsa/dsa.html
   CONFIG_NET_DSA
+
+  # https://cateee.net/lkddb/web-lkddb/LDISC_AUTOLOAD.html
+  # Don't autoload line disciplines, already set by our sysctl
+  CONFIG_LDISC_AUTOLOAD
 
 
   ############################################################
@@ -301,6 +314,19 @@ configs_to_disable=(
   # https://cateee.net/lkddb/web-lkddb/DW_XDATA_PCIE.html
   CONFIG_DW_XDATA_PCIE
 
+  # https://cateee.net/lkddb/web-lkddb/LATENCYTOP.html
+  # https://en.wikipedia.org/wiki/LatencyTOP
+  # Tool for debugging kernel latency
+  CONFIG_LATENCYTOP
+
+  # https://cateee.net/lkddb/web-lkddb/XFS_ONLINE_SCRUB_STATS.html
+  # xfs_scrub monitoring and data collection tooling
+  CONFIG_XFS_ONLINE_SCRUB_STATS
+
+  # https://cateee.net/lkddb/web-lkddb/PROVIDE_OHCI1394_DMA_INIT.html
+  # Enables Firewire debugging over remote DMA
+  CONFIG_PROVIDE_OHCI1394_DMA_INIT
+
 
   ############################################################
   ################# Unused ports and devices #################
@@ -397,6 +423,27 @@ configs_to_disable=(
   # https://www.kernelconfig.io/CONFIG_DEVPORT
   # Provides support for the /dev/port device, which can RW directly to IO ports
   CONFIG_DEVPORT
+
+  # https://cateee.net/lkddb/web-lkddb/LIVEPATCH.html
+  # Attack surface, not useful with bootc 
+  CONFIG_LIVEPATCH
+
+  # https://cateee.net/lkddb/web-lkddb/SUNRPC_DEBUG.html
+  # Used for debugging NFS issues
+  CONFIG_SUNRPC_DEBUG
+
+  # https://cateee.net/lkddb/web-lkddb/X86_IOPL_IOPERM.html
+  # Provides emulation for legacy syscalls that are already blocked by lockdown
+  CONFIG_X86_IOPL_IOPERM
+
+  # https://cateee.net/lkddb/web-lkddb/CACHESTAT_SYSCALL.html
+  # Syscall that exposes page cache information, used primarily by DBMSes
+  CACHESTAT_SYSCALL
+
+  # https://cateee.net/lkddb/web-lkddb/MEM_SOFT_DIRTY.html
+  # Adds a soft dirty bit to PTEs that can be cleared by userspace.
+  # Used primarily by https://en.wikipedia.org/wiki/CRIU
+  CONFIG_MEM_SOFT_DIRTY
 
   # https://www.kernelconfig.io/CONFIG_DEVMEM
   # Provides support for the /dev/mem device, which can RW directly to memory
