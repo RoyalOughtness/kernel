@@ -438,7 +438,7 @@ configs_to_disable=(
 
   # https://cateee.net/lkddb/web-lkddb/CACHESTAT_SYSCALL.html
   # Syscall that exposes page cache information, used primarily by DBMSes
-  CACHESTAT_SYSCALL
+  CONFIG_CACHESTAT_SYSCALL
 
   # https://cateee.net/lkddb/web-lkddb/MEM_SOFT_DIRTY.html
   # Adds a soft dirty bit to PTEs that can be cleared by userspace.
