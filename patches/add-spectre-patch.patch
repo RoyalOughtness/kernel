@@ -17,7 +17,7 @@
  ApplyOptionalPatch patch-%{patchversion}-redhat.patch
  %endif
  
-+ApplyOptionalPatch correct-spectre-flag-behavior.patch
++ApplyPatch correct-spectre-flag-behavior.patch
 +
  ApplyOptionalPatch linux-kernel-test.patch
  
