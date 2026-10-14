@@ -8,7 +8,7 @@
  Patch1: patch-%{patchversion}-redhat.patch
  %endif
  
-+Patch4010: correct-spectre-flag-behavior.patch
++Patch999998: correct-spectre-flag-behavior.patch
 +
  # empty final patch to facilitate testing of kernel patches
  Patch999999: linux-kernel-test.patch
